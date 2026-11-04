@@ -6,16 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.marwan_3tic.Home.pertemuan5.PlimaActivity
 import com.example.marwan_3tic.Home.pertemuan6.EnamActivity
+import com.example.marwan_3tic.Home.pertemuan9.NineActivity
 import com.example.marwan_3tic.LoginActivity
 import com.example.marwan_3tic.R
 import com.example.marwan_3tic.databinding.FragmentHomeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -30,6 +34,18 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar?.apply {
+            title = "Halaman Home"
+            subtitle = "Ini adalah halaman utama"
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        }
+
         val sharedPref = requireContext().getSharedPreferences("user_pref", MODE_PRIVATE)
         val nama =requireActivity().intent.getStringExtra("Nama")
         val umur = requireActivity().intent.getIntExtra("Umur", 0)
@@ -90,6 +106,11 @@ class HomeFragment : Fragment() {
 
         binding.btnToEnam.setOnClickListener {
             val intent = Intent(requireContext(), EnamActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnToNine.setOnClickListener {
+            val intent = Intent(requireContext(), NineActivity::class.java)
             startActivity(intent)
         }
     }
